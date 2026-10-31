@@ -3,6 +3,19 @@
 ## Resources
 https://numpy.org/devdocs/user/quickstart.html
 
+## More Learning Materials
+**Start here**
+- [NumPy: the absolute basics for beginners](https://numpy.org/doc/stable/user/absolute_beginners.html): the official beginner guide, slower than the quickstart
+- [W3Schools NumPy tutorial](https://www.w3schools.com/python/numpy/default.asp): short pages with "Try it yourself" boxes in the browser
+
+**Go deeper**
+- [Python Data Science Handbook, Ch. 2: NumPy](https://jakevdp.github.io/PythonDataScienceHandbook/02.00-introduction-to-numpy.html): free online book that covers masks and aggregations well, and leads into pandas
+- [Stanford CS231n Python + NumPy tutorial](https://cs231n.github.io/python-numpy-tutorial/): one-page Python and NumPy crash course, good for someone who already codes
+
+**Practice**
+- [NumPy tutorials](https://numpy.org/numpy-tutorials/): official hands-on notebooks with real data
+- [NumPy learning hub](https://numpy.org/learn/): the official list of more courses, books, and videos
+
 ## Java Comparison
 - A NumPy array (`np.array`) is like a Java `double[]`: fixed size, one type, fast.
 - Math works on the whole array at once. `arr * 2` doubles every item, with no `for` loop needed.

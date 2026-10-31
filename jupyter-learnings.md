@@ -3,6 +3,19 @@
 ## Resources
 https://docs.jupyter.org/en/latest/what_is_jupyter.html
 https://www.kdnuggets.com/the-7-most-useful-jupyter-notebook-extensions-for-data-scientists
+
+## More Learning Materials
+**Start here**
+- [Try Jupyter in your browser](https://jupyter.org/try): practice with nothing installed
+- [The Jupyter Notebook guide](https://jupyter-notebook.readthedocs.io/en/stable/notebook.html): the official guide to the notebook screen and how cells work
+- [Dataquest Jupyter Notebook tutorial](https://www.dataquest.io/blog/jupyter-notebook-tutorial/): beginner walkthrough of a full small analysis
+
+**Go deeper**
+- [Python Data Science Handbook, Ch. 1: IPython](https://jakevdp.github.io/PythonDataScienceHandbook/01.00-ipython-beyond-normal-python.html): help with `?`, magic commands like `%timeit`, and shell commands
+
+**Use it in your editor**
+- [Jupyter notebooks in VS Code](https://code.visualstudio.com/docs/datascience/jupyter-notebooks): run `.ipynb` files inside VS Code instead of the browser
+
 ## What a Notebook Is
 - A notebook (`.ipynb`) is a list of **cells**. Each cell is either **code** or **Markdown** (notes).
 - You run one cell at a time and see its output right under it. In Java you'd rerun the whole `main()`. Here you rerun only the part you changed.
