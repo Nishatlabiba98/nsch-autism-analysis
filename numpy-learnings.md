@@ -115,3 +115,90 @@ grid.sum(axis=0)                   # [5 7 9] -> add down each column
 grid.sum(axis=1)                   # [ 6 15] -> add across each row
 ```
 Tip: `axis=0` squashes the rows together, `axis=1` squashes the columns together. pandas uses the same idea.
+
+## Making Arrays Without Typing Every Value
+```python
+np.zeros(3)                        # [0. 0. 0.]  -> like new double[3] in Java
+np.ones(3)                         # [1. 1. 1.]
+np.arange(0, 10, 2)                # [0 2 4 6 8] -> like a for loop: start, stop (not included), step
+np.linspace(0, 1, 5)               # [0. 0.25 0.5 0.75 1.] -> 5 evenly spaced values, end included
+```
+
+## Changing the Type (`astype`)
+Like casting in Java.
+```python
+answers = np.array([1, 2, 2, 1])   # survey style: 1 = yes, 2 = no
+answers == 1                       # [ True False False  True] -> now yes/no
+(answers == 1).astype(int)         # [1 0 0 1]
+np.array([1.7, 2.2]).astype(int)   # [1 2] -> cuts off the decimal, like (int) 1.7 in Java
+```
+
+## Combining Tests (`&`, `|`, `~`)
+Use `&` (and), `|` (or), `~` (not), **not** Java's `&&`, `||`, `!` or Python's `and`, `or`, `not`. **Put each test in brackets.**
+```python
+ages = np.array([3, 7, 12, 5, 15])
+ages[(ages >= 6) & (ages < 12)]    # [7]        -> ages 6 to 11
+ages[(ages < 6) | (ages > 12)]     # [ 3  5 15]
+ages[~(ages < 6)]                  # [ 7 12 15] -> everyone NOT under 6
+```
+Without the brackets, `ages >= 6 & ages < 12` fails with `ValueError: The truth value of an array ... is ambiguous`. That's because `&` runs before `>=`.
+
+## Is It in a List? (`np.isin`)
+Like `list.contains(x)` in Java, but for every item at once.
+```python
+states = np.array([6, 36, 48, 6, 12])
+np.isin(states, [6, 36])           # [ True  True False  True False]
+states[np.isin(states, [6, 36])]   # [ 6 36  6] -> keep only California (6) and New York (36)
+```
+
+## Sorting and Ranking
+```python
+rates = np.array([0.031, 0.045, 0.022])
+names = np.array(["CA", "NY", "TX"])
+np.sort(rates)                     # [0.022 0.031 0.045]
+np.argsort(rates)                  # [2 0 1] -> the positions in sorted order, not the values
+names[np.argsort(rates)[::-1]]     # ['NY' 'CA' 'TX'] -> names from highest to lowest rate
+```
+`argsort` keeps the names and rates lined up, which is what you need for "top states". `[::-1]` reverses the array.
+
+## Rounding for Reports
+```python
+np.round(np.array([0.28571, 0.5]), 3)  # [0.286 0.5  ]
+np.round(0.28571 * 100, 1)             # 28.6 -> as a percent
+```
+
+## Weighted Rate for Each Group
+This is the main pattern for "rate by sex", "rate by age group" and so on. It combines a mask with the weighted average.
+```python
+has_autism = np.array([True, False, False, True])
+weights    = np.array([100, 300, 200, 100])
+sex        = np.array([1, 2, 1, 2])    # 1 = male, 2 = female
+
+for code in np.unique(sex):
+    mask = sex == code                 # pick this group's rows
+    rate = np.average(has_autism[mask], weights=weights[mask])
+    print(code, round(rate, 3))        # 1 0.333  then  2 0.25
+```
+pandas `groupby` will do this loop for you later, but it's good to see what it does underneath.
+
+## Views vs Copies (A Java-Style Gotcha)
+A slice is a **view**: it points at the same memory, like two Java variables pointing at the same array.
+```python
+x = np.array([1, 2, 3])
+part = x[:2]
+part[0] = 99
+x                                  # [99  2  3] -> the original changed too!
+
+x = np.array([1, 2, 3])
+part = x[:2].copy()                # a real, separate copy
+part[0] = 99
+x                                  # [1 2 3] -> original is safe
+```
+Use `.copy()` when you plan to change a slice but want to keep the original.
+
+## Random Numbers (for Practice Data)
+```python
+rng = np.random.default_rng(42)    # 42 is the seed -> same numbers every run, like new Random(42)
+rng.integers(0, 18, size=5)        # [ 1 13 11  7  7] -> 5 fake ages from 0 to 17
+```
+Handy for testing code before the real survey file is loaded.
